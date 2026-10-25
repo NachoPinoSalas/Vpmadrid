@@ -14,6 +14,10 @@ defecto "Equipo 2"). Esa identidad no cambia al cambiar de lado.
 | `color` | id de la paleta | Uno de: `blanco`, `amarillo`, `negro`, `rojo`, `granate`, `naranja`, `verde`, `azul`, `azulMarino`, `morado` (RF-015). |
 | `logo` | sí/no | Solo puede ser "sí" si `color` es `negro` (RF-016). Si el color deja de ser negro, pasa a "no". |
 
+**Nombre y logo** (RF-016b): con `logo` en "sí", `nombre` es siempre "VPMadrid". Al pasar
+`logo` de "sí" a "no", si el nombre sigue siendo "VPMadrid" vuelve al de por defecto
+("Equipo 1" o "Equipo 2"); si se ha escrito otro, se respeta.
+
 **Color del número** (RF-003 y RF-007): negro si `color` es `blanco` o `amarillo`; blanco
 en cualquier otro caso. En el contador de sets (fondo blanco), el número va del color de la
 camiseta, salvo blanco o amarillo, que van en negro.

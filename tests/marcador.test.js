@@ -288,3 +288,30 @@ test("cambiarLado no altera puntos ni sets de cada equipo", () => {
   assert.deepEqual(despues.puntosSet, antes.puntosSet);
   assert.deepEqual(despues.sets, antes.sets);
 });
+
+// Cambio: nombre "VPMadrid" con el logo (RF-016b)
+
+const conLogo = (equipo = "A") =>
+  editarEquipo(partidoNuevo(), equipo, { nombre: "Las Rozas", color: "negro", logo: true });
+
+test("con el logo activado el nombre es VPMadrid", () => {
+  assert.equal(datosA(conLogo()).nombre, "VPMadrid");
+});
+
+test("al quitar el logo, VPMadrid vuelve al nombre por defecto", () => {
+  const a = editarEquipo(conLogo("A"), "A", { nombre: "VPMadrid", color: "negro", logo: false });
+  assert.equal(datosA(a).nombre, "Equipo 1");
+  const b = editarEquipo(conLogo("B"), "B", { nombre: "VPMadrid", color: "negro", logo: false });
+  assert.equal(b.equipos.B.nombre, "Equipo 2");
+});
+
+test("al quitar el logo se respeta un nombre nuevo escrito", () => {
+  const r = editarEquipo(conLogo(), "A", { nombre: "Las Rozas", color: "negro", logo: false });
+  assert.equal(datosA(r).nombre, "Las Rozas");
+});
+
+test("pasar de negro con logo a verde vuelve al nombre por defecto", () => {
+  const r = editarEquipo(conLogo(), "A", { nombre: "VPMadrid", color: "verde", logo: true });
+  assert.equal(datosA(r).nombre, "Equipo 1");
+  assert.equal(datosA(r).logo, false);
+});

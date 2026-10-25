@@ -13,7 +13,7 @@ nuevo.
 | `rehacer(partido)` | Partido | Partido con el último punto de `rehacer` aplicado de nuevo. Con `rehacer` vacío, lo devuelve sin cambios. |
 | `reiniciarMarcador(partido)` | Partido | Partido con `puntos`, `rehacer`, `cronometro` e `idHistorial` a cero o vacíos; mantiene formato, equipos y lados. |
 | `cambiarLado(partido)` | Partido | Partido con `equipoIzquierda` cambiado. |
-| `editarEquipo(partido, equipo, {nombre, color, logo})` | ... | Partido con el equipo validado según [data-model.md](../data-model.md#equipo). |
+| `editarEquipo(partido, equipo, {nombre, color, logo})` | ... | Partido con el equipo validado según [data-model.md](../data-model.md#equipo), incluida la regla "Nombre y logo" (con logo, el nombre es "VPMadrid"). |
 | `colorNumeroOscuro(color)` | id de color | `true` para `blanco` y `amarillo`. |
 
 Las reglas de set y partido son las de [data-model.md](../data-model.md#valores-calculados-no-se-guardan).

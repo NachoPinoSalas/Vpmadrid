@@ -1,6 +1,6 @@
 // Service worker: guarda la app en caché para que funcione sin conexión.
 // Al publicar cambios hay que subir la versión de CACHE para que los móviles los reciban.
-const CACHE = "vpmadrid-v1";
+const CACHE = "vpmadrid-v2";
 const ARCHIVOS = [
   "./",
   "index.html",

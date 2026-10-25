@@ -45,7 +45,7 @@ npx serve .                        # servidor local en http://localhost:3000
 | 5 | Abrir el globito y tocar una mitad. Después: globito → ↶ → "Deshacer", contando los toques. | Tocar la mitad solo cierra el globito, sin sumar. Deshacer lleva 3 toques como máximo: sets 0 - 0, puntos 24 - 20. "Rehacer" lo devuelve a 1 - 0. | Historia 2, esc. 4; CE-004; casos límite |
 | 6 | Pedir a alguien que no conoce la app que lleve un partido "al mejor de 3" hasta el final. | Lo consigue sin ayuda; sale "¡… gana el partido!" y el cronómetro se para. | CE-001, RF-017b |
 | 7 | Con el partido terminado: globito → ↶ → "Deshacer". Abrir el historial. | El partido se reabre y no aparece en el historial. Al volver a ganarlo, aparece una vez. | Historia 2, esc. 7 |
-| 8 | Editar equipos: blanco, amarillo y negro con logo. Pasar el negro a verde. | Números en negro con blanco y amarillo. El logo aparece con negro y desaparece al pasar a verde. | Historia 3 |
+| 8 | Editar equipos: blanco, amarillo y negro con logo. Pasar el negro a verde. | Números en negro con blanco y amarillo. Al marcar el logo, el nombre pasa a "VPMadrid" y no se puede cambiar; el logo aparece con negro. Al pasar a verde desaparece el logo y el nombre vuelve a "Equipo 1"/"Equipo 2". | Historia 3, RF-016b |
 | 9 | Mirar el móvil desde 3 metros con cada color de la paleta. | Los números se leen sin esfuerzo. | CE-007 |
 | 10 | ⇄ con 10 - 8 y sets 1 - 0; luego pulsar en cada mitad. | Cada equipo cambia de lado con sus datos; el punto va al equipo de esa mitad. | Historia 5 |
 | 11 | Girar el móvil a horizontal y volver a vertical. | Mitades lado a lado / una encima de otra, mismos datos. | RF-018 |

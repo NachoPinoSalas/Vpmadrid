@@ -194,6 +194,11 @@ body {
   font: inherit;
 }
 
+.campo-nombre input:disabled {
+  background: #EEEEEE;
+  color: #000000;
+}
+
 .paleta {
   margin: 16px 0 0;
   padding: 0;

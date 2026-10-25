@@ -47,6 +47,10 @@ las respuestas a 8 preguntas de aclaración (ver "Aclaraciones").
   cierra.
 - P: ¿Cambiar un momento a otra app pausa el cronómetro? → R: No, sigue contando; solo queda
   en pausa si la app se cierra del todo o se recarga.
+- P: Si se activa "Mostrar logo VPMadrid", ¿qué nombre tiene el equipo? → R: "VPMadrid",
+  fijo: no se puede cambiar mientras el logo esté activado.
+- P: Si después se quita el logo, ¿qué nombre queda? → R: El nombre por defecto ("Equipo 1"
+  o "Equipo 2"), que se puede cambiar.
 
 ## Escenarios de usuario y pruebas *(obligatorio)*
 
@@ -170,6 +174,12 @@ del número y logo.
    del negro, **entonces** el logo deja de mostrarse.
 8. **Dado** la edición abierta, **cuando** la cierro sin guardar, **entonces** no cambia
    nada.
+9. **Dado** un equipo con camiseta negra, **cuando** activo "Mostrar logo VPMadrid",
+   **entonces** el nombre pasa a ser "VPMadrid" y no se puede cambiar mientras el logo esté
+   activado; al guardar, encima del número aparece "VPMadrid".
+10. **Dado** un equipo "VPMadrid" con el logo activado, **cuando** quito el logo
+    (desmarcando la opción o eligiendo otro color), **entonces** el nombre vuelve a
+    "Equipo 1" o "Equipo 2" y se puede escribir otro.
 
 ---
 
@@ -317,6 +327,9 @@ todos.
   granate, naranja, verde, azul, azul marino y morado. El fondo de la mitad toma ese color.
 - **RF-016**: Si el color es negro, la edición DEBE ofrecer "Mostrar logo VPMadrid"
   (desactivado por defecto), que muestra el logo en esa mitad.
+- **RF-016b**: Con el logo activado, el nombre del equipo DEBE ser "VPMadrid" y no se puede
+  cambiar. Al quitar el logo, el nombre DEBE volver al de por defecto ("Equipo 1" o
+  "Equipo 2").
 
 **Cronómetro**
 - **RF-017**: Arriba DEBE haber un cronómetro en formato mm:ss con un botón play/pausa a la

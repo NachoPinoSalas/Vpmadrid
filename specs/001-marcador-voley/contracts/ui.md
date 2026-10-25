@@ -60,7 +60,7 @@ suma ningún punto.
 | Reiniciar marcador | "¿Reiniciar marcador?" | "Los puntos, los sets y el cronómetro volverán a cero. Los nombres y colores se mantienen." | "Cancelar" · "Reiniciar" |
 | Nuevo partido | "¿Nuevo partido?" | "Se perderá el partido actual si no ha terminado." + selector "Al mejor de 3" / "Al mejor de 5" (marcado "Al mejor de 5") | "Cancelar" · "Empezar" |
 | Fin del partido | "¡{nombre} gana el partido!" | "{setsGanador} - {setsPerdedor} en sets. Guardado en el historial." | "Aceptar" |
-| Editar equipo | "Editar equipo" | Campo "Nombre" (máx. 20) · "Color de la camiseta" (paleta) · casilla "Mostrar logo VPMadrid" (solo si el color es negro) | "Cancelar" · "Guardar" |
+| Editar equipo | "Editar equipo" | Campo "Nombre" (máx. 20) · "Color de la camiseta" (paleta) · casilla "Mostrar logo VPMadrid" (solo si el color es negro). Al marcar la casilla, el campo "Nombre" pasa a "VPMadrid" y queda bloqueado; al desmarcarla (o elegir otro color) vuelve a "Equipo 1"/"Equipo 2" y se desbloquea | "Cancelar" · "Guardar" |
 | Historial | "Historial" | Lista "dd/mm/aaaa · {nombreA} {setsA} - {setsB} {nombreB}", con un botón "Borrar" en cada fila. Si está vacío: "Todavía no hay partidos guardados". | "Borrar todo" (solo si hay partidos) · "Cerrar" |
 | Borrar un partido | "¿Borrar este partido?" | "{fila del partido}" | "Cancelar" · "Borrar" |
 | Borrar todo | "¿Borrar todo el historial?" | "Se borrarán todos los partidos guardados." | "Cancelar" · "Borrar todo" |

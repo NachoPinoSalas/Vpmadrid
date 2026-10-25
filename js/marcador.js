@@ -24,7 +24,12 @@ export function otroEquipo(equipo) {
 }
 
 const NOMBRE_POR_DEFECTO = { A: "Equipo 1", B: "Equipo 2" };
+export const NOMBRE_CON_LOGO = "VPMadrid";
 const MAX_NOMBRE = 20;
+
+export function nombrePorDefecto(equipo) {
+  return NOMBRE_POR_DEFECTO[equipo];
+}
 
 export function partidoNuevo(formato = 5) {
   return {
@@ -95,10 +100,15 @@ export function rehacer(partido) {
 
 // Nombre: sin espacios sobrantes, máximo 20 caracteres y, si queda vacío, el de por
 // defecto. Color: solo de la paleta. Logo: solo con camiseta negra (RF-014 a RF-016).
+// Con logo, el equipo se llama "VPMadrid"; al quitarlo, ese nombre vuelve al de por
+// defecto, pero se respeta uno nuevo escrito (RF-016b).
 export function editarEquipo(partido, equipo, { nombre, color, logo }) {
   const actual = partido.equipos[equipo];
-  const nombreLimpio = String(nombre ?? "").trim().slice(0, MAX_NOMBRE).trim();
   const colorValido = PALETA.some((c) => c.id === color) ? color : actual.color;
+  const conLogo = Boolean(logo) && colorValido === "negro";
+  let nombreLimpio = String(nombre ?? "").trim().slice(0, MAX_NOMBRE).trim();
+  if (conLogo) nombreLimpio = NOMBRE_CON_LOGO;
+  else if (actual.logo && nombreLimpio === NOMBRE_CON_LOGO) nombreLimpio = "";
   return {
     ...partido,
     equipos: {
@@ -106,7 +116,7 @@ export function editarEquipo(partido, equipo, { nombre, color, logo }) {
       [equipo]: {
         nombre: nombreLimpio || NOMBRE_POR_DEFECTO[equipo],
         color: colorValido,
-        logo: Boolean(logo) && colorValido === "negro",
+        logo: conLogo,
       },
     },
   };

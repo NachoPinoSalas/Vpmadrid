@@ -8,6 +8,8 @@ import {
   deshacer,
   editarEquipo,
   formatearTiempo,
+  NOMBRE_CON_LOGO,
+  nombrePorDefecto,
   otroEquipo,
   partidoNuevo,
   pausarCronometro,
@@ -237,17 +239,35 @@ function colorElegido() {
   return paleta.querySelector('input[name="color"]:checked')?.value;
 }
 
+let equipoEditado = null;
+
+// Con el logo, el nombre es "VPMadrid" y no se puede cambiar; al quitarlo vuelve al
+// nombre por defecto (RF-016b)
+function actualizarNombreSegunLogo() {
+  if (campoLogo.checked) {
+    campoNombre.value = NOMBRE_CON_LOGO;
+    campoNombre.disabled = true;
+  } else if (campoNombre.disabled) {
+    campoNombre.value = nombrePorDefecto(equipoEditado);
+    campoNombre.disabled = false;
+  }
+}
+
 // La opción del logo solo aparece con camiseta negra
 function actualizarOpcionLogo() {
   opcionLogo.hidden = colorElegido() !== "negro";
   if (opcionLogo.hidden) campoLogo.checked = false;
+  actualizarNombreSegunLogo();
 }
 
 paleta.addEventListener("change", actualizarOpcionLogo);
+campoLogo.addEventListener("change", actualizarNombreSegunLogo);
 
 function abrirEdicion(equipo) {
   const { nombre, color, logo } = partido.equipos[equipo];
+  equipoEditado = equipo;
   campoNombre.value = nombre;
+  campoNombre.disabled = logo;
   paleta.querySelector(`input[value="${color}"]`).checked = true;
   campoLogo.checked = logo;
   actualizarOpcionLogo();
