@@ -12,7 +12,7 @@ usando la app, sin leer código (principio IV).
 ## Arrancar
 
 ```text
-node --test tests/                 # pruebas automáticas de las reglas
+node --test                 # pruebas automáticas de las reglas
 npx serve .                        # servidor local en http://localhost:3000
 ```
 
@@ -23,7 +23,7 @@ npx serve .                        # servidor local en http://localhost:3000
 
 ## 1. Pruebas automáticas (reglas, CE-003)
 
-`node --test tests/` debe terminar sin fallos. Cubren al menos:
+`node --test` debe terminar sin fallos. Cubren al menos:
 
 - 25 - 23 cierra el set; 25 - 24 no; 26 - 24 sí.
 - El set decisivo va a 15 (5.º en "al mejor de 5" y 3.º en "al mejor de 3").

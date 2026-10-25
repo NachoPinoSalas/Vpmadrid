@@ -1,0 +1,107 @@
+/* Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  background: #000000;
+  color: #FFFFFF;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Sin zoom por doble toque: los toques rápidos suman siempre (CE-002) */
+  touch-action: manipulation;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contador de sets (RF-007): fondo blanco, cada número del color de su camiseta */
+#contador-sets {
+  align-self: center;
+  margin: 1vmin 0;
+  padding: 0.5vmin 3vmin;
+  border-radius: 2vmin;
+  background: #FFFFFF;
+  color: #000000;
+  font-size: 7vmin;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Campo: en vertical, una mitad encima de otra */
+#campo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+}
+
+.mitad {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.nombre-equipo {
+  font-size: 6vmin;
+  font-weight: 600;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.numero-puntos {
+  font-size: 35vmin;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Diálogos */
+dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: min(90vw, 420px);
+  text-align: center;
+  font-size: 18px;
+}
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.6);
+}
+
+dialog h2 {
+  margin: 0 0 12px;
+}
+
+dialog button {
+  min-height: 48px;
+  min-width: 120px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #1565C0;
+  color: #FFFFFF;
+  font: inherit;
+  font-weight: 600;
+}
