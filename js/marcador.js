@@ -23,12 +23,15 @@ export function otroEquipo(equipo) {
   return equipo === "A" ? "B" : "A";
 }
 
+const NOMBRE_POR_DEFECTO = { A: "Equipo 1", B: "Equipo 2" };
+const MAX_NOMBRE = 20;
+
 export function partidoNuevo(formato = 5) {
   return {
     formato,
     equipos: {
-      A: { nombre: "Equipo 1", color: "azul", logo: false },
-      B: { nombre: "Equipo 2", color: "rojo", logo: false },
+      A: { nombre: NOMBRE_POR_DEFECTO.A, color: "azul", logo: false },
+      B: { nombre: NOMBRE_POR_DEFECTO.B, color: "rojo", logo: false },
     },
     equipoIzquierda: "A",
     puntos: [],
@@ -68,4 +71,80 @@ export function calcular(partido) {
 export function sumarPunto(partido, equipo) {
   if (calcular(partido).ganador) return partido;
   return { ...partido, puntos: [...partido.puntos, equipo], rehacer: [] };
+}
+
+// Deshacer y rehacer solo afectan a puntos (RF-009). Como sets y ganador se calculan
+// a partir de la lista, deshacer el punto que cerró un set o el partido también los deshace.
+export function deshacer(partido) {
+  if (partido.puntos.length === 0) return partido;
+  return {
+    ...partido,
+    puntos: partido.puntos.slice(0, -1),
+    rehacer: [...partido.rehacer, partido.puntos.at(-1)],
+  };
+}
+
+export function rehacer(partido) {
+  if (partido.rehacer.length === 0) return partido;
+  return {
+    ...partido,
+    puntos: [...partido.puntos, partido.rehacer.at(-1)],
+    rehacer: partido.rehacer.slice(0, -1),
+  };
+}
+
+// Nombre: sin espacios sobrantes, máximo 20 caracteres y, si queda vacío, el de por
+// defecto. Color: solo de la paleta. Logo: solo con camiseta negra (RF-014 a RF-016).
+export function editarEquipo(partido, equipo, { nombre, color, logo }) {
+  const actual = partido.equipos[equipo];
+  const nombreLimpio = String(nombre ?? "").trim().slice(0, MAX_NOMBRE).trim();
+  const colorValido = PALETA.some((c) => c.id === color) ? color : actual.color;
+  return {
+    ...partido,
+    equipos: {
+      ...partido.equipos,
+      [equipo]: {
+        nombre: nombreLimpio || NOMBRE_POR_DEFECTO[equipo],
+        color: colorValido,
+        logo: Boolean(logo) && colorValido === "negro",
+      },
+    },
+  };
+}
+
+// Cronómetro: el tiempo sale del reloj del sistema, no de contar ticks (CE-006)
+export function tiempoMs(crono, ahora) {
+  return crono.enMarchaDesde == null ? crono.acumuladoMs : crono.acumuladoMs + ahora - crono.enMarchaDesde;
+}
+
+export function formatearTiempo(ms) {
+  const segundos = Math.floor(ms / 1000);
+  const minutos = Math.floor(segundos / 60);
+  return `${String(minutos).padStart(2, "0")}:${String(segundos % 60).padStart(2, "0")}`;
+}
+
+export function arrancarCronometro(crono, ahora) {
+  if (crono.enMarchaDesde != null) return crono;
+  return { ...crono, enMarchaDesde: ahora };
+}
+
+export function pausarCronometro(crono, ahora) {
+  if (crono.enMarchaDesde == null) return crono;
+  return { ...crono, acumuladoMs: tiempoMs(crono, ahora), enMarchaDesde: null };
+}
+
+// Los puntos van al equipo, no al lado: cambiar de lado no toca el marcador (RF-013)
+export function cambiarLado(partido) {
+  return { ...partido, equipoIzquierda: otroEquipo(partido.equipoIzquierda) };
+}
+
+// Mantiene formato, equipos y lados (RF-010)
+export function reiniciarMarcador(partido) {
+  return {
+    ...partido,
+    puntos: [],
+    rehacer: [],
+    cronometro: { acumuladoMs: 0, enMarchaDesde: null },
+    idHistorial: null,
+  };
 }

@@ -4,12 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <title>vpmadrid</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icono-192.png">
   <link rel="stylesheet" href="css/estilos.css">
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
-  <header id="barra-superior"></header>
+  <header id="barra-superior">
+    <button id="boton-play" aria-label="Iniciar cronómetro">▶</button>
+    <span id="cronometro">00:00</span>
+    <button id="boton-reiniciar-crono" aria-label="Reiniciar cronómetro">↺</button>
+  </header>
 
   <div id="contador-sets">
     <span id="sets-izquierda">0</span> - <span id="sets-derecha">0</span>
@@ -19,12 +26,108 @@
     <section class="mitad" id="mitad-izquierda">
       <div class="nombre-equipo"></div>
       <div class="numero-puntos">0</div>
+      <button class="lapiz" aria-label="Editar equipo">✎</button>
+      <img class="logo" src="assets/logo-vpmadrid-transparente.png" alt="VPMadrid" hidden>
     </section>
     <section class="mitad" id="mitad-derecha">
       <div class="nombre-equipo"></div>
       <div class="numero-puntos">0</div>
+      <button class="lapiz" aria-label="Editar equipo">✎</button>
+      <img class="logo" src="assets/logo-vpmadrid-transparente.png" alt="VPMadrid" hidden>
     </section>
   </main>
+
+  <div id="globito">
+    <div id="menu-partido" class="menu" hidden>
+      <button id="opcion-nuevo">Nuevo partido</button>
+      <button id="opcion-reiniciar">Reiniciar marcador</button>
+    </div>
+    <div id="menu-deshacer" class="menu" hidden>
+      <button id="opcion-deshacer">Deshacer</button>
+      <button id="opcion-rehacer">Rehacer</button>
+    </div>
+    <div id="globito-botones" hidden>
+      <button id="boton-partido" aria-label="Partido">＋</button>
+      <button id="boton-deshacer" aria-label="Deshacer o rehacer">↶</button>
+      <button id="boton-lado" aria-label="Cambiar de lado">⇄</button>
+      <button id="boton-historial" aria-label="Historial">🕘</button>
+    </div>
+    <button id="boton-globito" aria-label="Opciones"></button>
+  </div>
+
+  <dialog id="dialogo-reiniciar">
+    <h2>¿Reiniciar marcador?</h2>
+    <p>Los puntos, los sets y el cronómetro volverán a cero. Los nombres y colores se mantienen.</p>
+    <form method="dialog" class="botones">
+      <!-- El botón de confirmar va primero en el código; el CSS lo muestra a la derecha -->
+      <button value="confirmar">Reiniciar</button>
+      <button value="cancelar" class="secundario">Cancelar</button>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-nuevo">
+    <h2>¿Nuevo partido?</h2>
+    <p>Se perderá el partido actual si no ha terminado.</p>
+    <form method="dialog">
+      <fieldset class="formato">
+        <label><input type="radio" name="formato" value="3"> Al mejor de 3</label>
+        <label><input type="radio" name="formato" value="5" checked> Al mejor de 5</label>
+      </fieldset>
+      <div class="botones">
+        <button value="confirmar">Empezar</button>
+        <button value="cancelar" class="secundario">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-equipo">
+    <form method="dialog">
+      <!-- autofocus en el título: que no salte el teclado al abrir -->
+      <h2 tabindex="-1" autofocus>Editar equipo</h2>
+      <label class="campo-nombre">Nombre
+        <input id="campo-nombre" maxlength="20" autocomplete="off">
+      </label>
+      <fieldset class="paleta">
+        <legend>Color de la camiseta</legend>
+        <div id="paleta"></div>
+      </fieldset>
+      <label id="opcion-logo" class="casilla">
+        <input type="checkbox" id="campo-logo"> Mostrar logo VPMadrid
+      </label>
+      <div class="botones">
+        <button value="confirmar">Guardar</button>
+        <button value="cancelar" class="secundario">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-historial">
+    <h2>Historial</h2>
+    <ul id="lista-historial"></ul>
+    <p id="historial-vacio">Todavía no hay partidos guardados</p>
+    <form method="dialog" class="botones">
+      <button value="cerrar">Cerrar</button>
+      <button type="button" id="boton-borrar-todo" class="secundario">Borrar todo</button>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-borrar-uno">
+    <h2>¿Borrar este partido?</h2>
+    <p id="texto-borrar-uno"></p>
+    <form method="dialog" class="botones">
+      <button value="confirmar">Borrar</button>
+      <button value="cancelar" class="secundario">Cancelar</button>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-borrar-todo">
+    <h2>¿Borrar todo el historial?</h2>
+    <p>Se borrarán todos los partidos guardados.</p>
+    <form method="dialog" class="botones">
+      <button value="confirmar">Borrar todo</button>
+      <button value="cancelar" class="secundario">Cancelar</button>
+    </form>
+  </dialog>
 
   <dialog id="dialogo-fin">
     <h2></h2>

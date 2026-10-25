@@ -25,6 +25,33 @@ body {
   flex-direction: column;
 }
 
+/* Cronómetro (RF-017): pequeño, arriba, con play a la izquierda */
+#barra-superior {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: env(safe-area-inset-top);
+}
+
+#barra-superior button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
+  font: inherit;
+  font-size: 22px;
+}
+
+#cronometro {
+  min-width: 4.5ch;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Contador de sets (RF-007): fondo blanco, cada número del color de su camiseta */
 #contador-sets {
   align-self: center;
@@ -76,6 +103,189 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* En horizontal (RF-018): mitades una al lado de otra; cronómetro y sets flotan
+   arriba en el centro, sobre la línea que separa los equipos */
+@media (orientation: landscape) {
+  #campo {
+    flex-direction: row;
+  }
+
+  #barra-superior,
+  #contador-sets {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+  }
+
+  #barra-superior {
+    top: 0;
+    padding: env(safe-area-inset-top) 6px 0;
+    border-radius: 0 0 12px 12px;
+    background: rgb(0 0 0 / 0.55);
+  }
+
+  #contador-sets {
+    top: 52px;
+    margin: 0;
+  }
+
+  .numero-puntos {
+    font-size: 40vmin;
+  }
+
+  /* Lápiz y logo en las esquinas exteriores, lejos de la barra central */
+  #mitad-izquierda .lapiz {
+    left: 1vmin;
+    right: auto;
+  }
+
+  #mitad-izquierda .logo,
+  #mitad-derecha .logo {
+    top: auto;
+    bottom: 2vmin;
+  }
+
+  #mitad-derecha .logo {
+    left: auto;
+    right: 2vmin;
+  }
+}
+
+/* Lápiz: zona propia que nunca suma puntos */
+.lapiz {
+  position: absolute;
+  top: 1vmin;
+  right: 1vmin;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--texto);
+  font: inherit;
+  font-size: 30px;
+}
+
+/* Logo con camiseta negra: no tapa el número ni la zona que suma */
+.logo {
+  position: absolute;
+  top: 2vmin;
+  left: 2vmin;
+  width: 30vmin;
+  max-width: 40%;
+  pointer-events: none;
+}
+
+/* Editar equipo */
+.campo-nombre {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.campo-nombre input {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 2px solid #9E9E9E;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.paleta {
+  margin: 16px 0 0;
+  padding: 0;
+  border: none;
+  text-align: left;
+}
+
+.paleta legend {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+#paleta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+#paleta label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 6px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+#paleta label:has(input:checked) {
+  border-color: #1565C0;
+}
+
+#paleta input {
+  position: absolute;
+  opacity: 0;
+}
+
+.muestra {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid #9E9E9E;
+}
+
+.casilla {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.casilla[hidden] {
+  display: none;
+}
+
+.casilla input {
+  width: 24px;
+  height: 24px;
+}
+
+/* Historial (RF-021, RF-022) */
+#lista-historial {
+  max-height: 50dvh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+#lista-historial li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+#lista-historial li button {
+  min-width: 0;
+  flex: none;
+}
+
+#historial-vacio[hidden],
+#boton-borrar-todo[hidden] {
+  display: none;
+}
+
 /* Diálogos */
 dialog {
   border: none;
@@ -90,8 +300,17 @@ dialog::backdrop {
   background: rgb(0 0 0 / 0.6);
 }
 
+dialog {
+  max-height: 90dvh;
+  overflow-y: auto;
+}
+
 dialog h2 {
   margin: 0 0 12px;
+}
+
+dialog h2:focus {
+  outline: none;
 }
 
 dialog button {
@@ -104,4 +323,122 @@ dialog button {
   color: #FFFFFF;
   font: inherit;
   font-weight: 600;
+}
+
+dialog button.secundario {
+  background: #E0E0E0;
+  color: #000000;
+}
+
+/* Confirmar va primero en el código (Intro lo elige) y se muestra a la derecha */
+.botones {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.formato {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.formato label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.formato input {
+  width: 24px;
+  height: 24px;
+}
+
+/* Globito (RF-008): abajo en el centro, por encima del campo */
+#globito {
+  position: fixed;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#globito button {
+  border: none;
+  color: #FFFFFF;
+  font: inherit;
+}
+
+#boton-globito {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(0 0 0 / 0.55);
+  box-shadow: 0 0 0 3px rgb(255 255 255 / 0.85);
+}
+
+#boton-globito::after {
+  content: "";
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: auto;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+
+#globito-botones {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-radius: 32px;
+  background: rgb(0 0 0 / 0.75);
+}
+
+#globito-botones[hidden],
+.menu[hidden] {
+  display: none;
+}
+
+#globito-botones button {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.15);
+  font-size: 26px;
+  line-height: 1;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgb(0 0 0 / 0.85);
+}
+
+.menu button {
+  min-width: 200px;
+  min-height: 48px;
+  border-radius: 8px;
+  background: rgb(255 255 255 / 0.15);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.menu button:disabled {
+  opacity: 0.35;
 }
