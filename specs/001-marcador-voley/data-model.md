@@ -29,6 +29,7 @@ camiseta, salvo blanco o amarillo, que van en negro.
 | `rehacer` | lista de `"A"`/`"B"` | Puntos deshechos que se pueden rehacer. Se vacía al sumar un punto nuevo o al reiniciar. |
 | `cronometro.acumuladoMs` | número ≥ 0 | Milisegundos acumulados mientras estuvo en marcha. |
 | `cronometro.enMarchaDesde` | instante o vacío | Cuándo arrancó por última vez; vacío si está parado. |
+| `cronometro.guardadoEn` | instante o vacío | Cuándo se guardó el partido por última vez. Sirve para saber cuánto tiempo contar si la app se cerró con el cronómetro en marcha. |
 | `idHistorial` | texto o vacío | Id de la entrada del historial si el partido terminó y se guardó; vacío si no. |
 
 ### Valores calculados (no se guardan)

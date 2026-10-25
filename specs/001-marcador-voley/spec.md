@@ -1,6 +1,6 @@
 # Especificación: Marcador de voley vpmadrid v0
 
-**Rama**: `001-marcador-voley` (el proyecto aún no usa Git; es solo el nombre de la carpeta)
+**Rama**: `001-marcador-voley`
 
 **Creada**: 2026-10-24
 
@@ -38,6 +38,15 @@ las respuestas a 8 preguntas de aclaración (ver "Aclaraciones").
   con camiseta blanca o amarilla el número va en negro, con el resto en blanco.
 - P: Cuando un partido termina, ¿qué hace el cronómetro? → R: Se para solo y muestra la
   duración total; si "Deshacer" reabre el partido, sigue parado hasta pulsar play.
+
+### Sesión 2026-10-25 (tras /speckit-analyze)
+
+- P: ¿Se puede instalar la app en la pantalla de inicio? → R: Sí, con el icono de VPMadrid y
+  a pantalla completa; también funciona sin instalarla.
+- P: Con el globito o un menú abierto, ¿pulsar en una mitad suma un punto? → R: No, solo los
+  cierra.
+- P: ¿Cambiar un momento a otra app pausa el cronómetro? → R: No, sigue contando; solo queda
+  en pausa si la app se cierra del todo o se recarga.
 
 ## Escenarios de usuario y pruebas *(obligatorio)*
 
@@ -86,8 +95,8 @@ equipo gane, y comprobar los puntos, los sets y el anuncio del ganador.
 
 ### Historia 2 - Corregir errores y reiniciar (Prioridad: P1)
 
-Abajo hay un globito. Al pulsarlo se amplía y muestra tres botones: "+", "deshacer" y
-"cambiar de lado" (dos flechas). El "+" ofrece "Nuevo partido" y "Reiniciar marcador".
+Abajo hay un globito. Al pulsarlo se amplía y muestra cuatro botones: "+", "deshacer",
+"cambiar de lado" (dos flechas) e "historial". El "+" ofrece "Nuevo partido" y "Reiniciar marcador".
 "Deshacer" ofrece "Deshacer" y "Rehacer". (HU9, parte de deshacer y reinicios)
 
 **Por qué esta prioridad**: sin poder corregir un toque por error el marcador deja de ser
@@ -99,7 +108,7 @@ comprobando el marcador tras cada acción.
 **Escenarios de aceptación**:
 
 1. **Dado** el globito cerrado, **cuando** lo pulso, **entonces** se amplía y muestra "+",
-   "deshacer" y las dos flechas.
+   "deshacer", las dos flechas e "historial".
 2. **Dado** un marcador 10 - 8 tras un punto del Equipo 1, **cuando** elijo "Deshacer",
    **entonces** el marcador vuelve a 9 - 8.
 3. **Dado** que acabo de deshacer un punto, **cuando** elijo "Rehacer", **entonces** el
@@ -121,7 +130,7 @@ comprobando el marcador tras cada acción.
    y formato del partido.
 9. **Dado** un partido en curso, **cuando** elijo "Nuevo partido", **entonces** se me pide
    confirmar y elegir "al mejor de 3" o "al mejor de 5"; al confirmar, todo vuelve a los
-   valores predeterminados (nombres, colores, logo, puntos, sets y cronómetro) con el
+   valores predeterminados (nombres, colores, logo, lado, puntos, sets y cronómetro) con el
    formato elegido.
 10. **Dado** cualquiera de los dos reinicios, **cuando** cancelo la confirmación,
     **entonces** no cambia nada.
@@ -248,6 +257,10 @@ todos.
 
 - **Toque en el lápiz o en el globito**: no suma ningún punto. La zona que suma puntos es
   la mitad del equipo salvo el lápiz y su alrededor inmediato.
+- **Pulsar en una mitad con el globito o un menú abierto**: solo los cierra; no suma
+  ningún punto.
+- **Cambiar un momento a otra app o bloquear el móvil con el cronómetro en marcha**: el
+  cronómetro sigue contando y al volver muestra el tiempo real.
 - **Pulsar en las mitades con el partido terminado**: no suma puntos. Se puede empezar un
   "Nuevo partido", "Reiniciar marcador" o usar "Deshacer".
 - **Deshacer con el partido terminado**: reabre el partido sin el último punto y lo borra
@@ -285,7 +298,7 @@ todos.
 
 **Globito y correcciones**
 - **RF-008**: En la parte de abajo DEBE haber un globito que al pulsarlo muestre "+",
-  "deshacer" y "cambiar de lado".
+  "deshacer", "cambiar de lado" e "historial".
 - **RF-009**: "Deshacer" DEBE quitar el último punto sumado (y el set si ese punto lo
   cerró); "Rehacer" DEBE volver a aplicar el último punto deshecho. Solo afectan a puntos.
   Si el partido ya había terminado, "Deshacer" DEBE reabrirlo y quitarlo del historial.
@@ -317,7 +330,8 @@ todos.
 - **RF-019**: Si la app se cierra a mitad de partido, al volver DEBE recuperar el estado
   completo con el cronómetro en pausa.
 - **RF-019b**: Mientras la app esté en primer plano, la pantalla del móvil NO DEBE apagarse
-  sola, sean cuales sean los ajustes de bloqueo del móvil.
+  sola, sean cuales sean los ajustes de bloqueo del móvil, en los móviles indicados en
+  Supuestos.
 
 **Historial**
 - **RF-020**: Al terminar un partido, la app DEBE guardar automáticamente en el historial la
@@ -366,6 +380,11 @@ Todos se comprueban usando la app, sin leer código.
 - El nombre del producto es vpmadrid (la descripción decía "Reservas" por error).
 - La app se usa en un móvil (Android o iPhone), por una sola persona, sin cuentas de usuario ni conexión a
   internet. El partido en curso y el historial se guardan en el propio dispositivo.
+- La app se puede instalar en la pantalla de inicio del móvil, con el icono de VPMadrid,
+  y se abre a pantalla completa, sin la barra del navegador. Funciona igual sin instalarla.
+- Mantener la pantalla encendida (RF-019b) requiere Android con Chrome actualizado o
+  iPhone con iOS 16.4 o superior (18.4 o superior si la app está instalada). En móviles
+  más antiguos la app funciona igual, pero la pantalla sigue los ajustes del móvil.
 - Valores predeterminados: "Equipo 1" con camiseta azul a la izquierda (o arriba),
   "Equipo 2" con camiseta roja a la derecha (o abajo), logo desactivado, "al mejor de 5",
   cronómetro 00:00 parado. La primera vez que se abre la app empieza con estos valores.

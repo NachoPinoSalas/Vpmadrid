@@ -47,7 +47,8 @@ VERTICAL                         HORIZONTAL
 | ⇄ | "Cambiar de lado" | Intercambia los equipos de lado al instante. |
 | 🕘 | "Historial" | Abre el historial. |
 
-Al pulsar fuera del globito ampliado, este vuelve a cerrarse.
+Al pulsar fuera del globito ampliado (o de un menú abierto), se cierra y ese toque no
+suma ningún punto.
 
 > El botón "Historial" no aparece en HU9: es el acceso que exige RF-021 ("el historial
 > se abre desde el globito", spec, sección Aclaraciones).

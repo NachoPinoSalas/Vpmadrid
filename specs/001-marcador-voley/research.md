@@ -60,9 +60,12 @@ Cada decisión aplica el principio I de la constitución: ante dos opciones, la 
   tiempo sale del reloj del sistema, no de contar ticks.
 - **Por qué**: no acumula desfase (CE-006: máximo 1 s cada 10 min) aunque el navegador
   retrase los temporizadores.
-- **Al cerrar la app**: al pasar a segundo plano se suma el tiempo transcurrido a
-  `acumuladoMs` y se guarda el cronómetro pausado. Al volver aparece pausado con el
-  tiempo que tenía (RF-019).
+- **Al cambiar de app o cerrarla**: al pasar a segundo plano se guarda el partido tal
+  cual, con `enMarchaDesde`, y el cronómetro sigue contando (si se vuelve sin haber
+  cerrado la app, muestra el tiempo real). Cada guardado anota `guardadoEn`, el instante
+  del guardado. Si la app se cierra del todo, al abrirla de nuevo se suma a `acumuladoMs`
+  el tramo `guardadoEn - enMarchaDesde` y queda en pausa (RF-019, aclaración del
+  2026-10-25).
 - **Al terminar el partido**: se pausa igual (RF-017b). Si "Deshacer" reabre el partido,
   sigue pausado.
 
@@ -116,7 +119,9 @@ Cada decisión aplica el principio I de la constitución: ante dos opciones, la 
 
 ## D12. Logo de VPMadrid
 
-- **Decisión**: imagen fija en `assets/logo-vpmadrid.png`, aportada por el propietario.
-  Hasta que llegue, se usa una imagen provisional con el texto "VPMadrid".
-- **Dependencia abierta**: el archivo del logo (preferiblemente PNG con fondo
-  transparente o SVG, en blanco o con colores que se vean sobre negro).
+- **Decisión**: la app usa `assets/logo-vpmadrid-transparente.png` (496×236 px, negro y
+  amarillo, fondo transparente). Se ha generado a partir del original aportado por el
+  propietario (`assets/logo-vpmadrid.png`, 554×554 con fondo blanco), quitando el fondo
+  blanco y recortando los márgenes vacíos.
+- **Por qué**: sobre la camiseta negra, el fondo blanco del original se vería como un
+  cuadrado blanco.

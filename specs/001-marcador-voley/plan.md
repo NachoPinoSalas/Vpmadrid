@@ -49,7 +49,7 @@ cientos de partidos
 |---|---|---|---|
 | I. Simplicidad ante todo | Sin frameworks, sin compilación, sin servidor, sin dependencias de ejecución. Una sola fuente de verdad (lista de puntos). En cada decisión de research.md consta la alternativa más compleja que se descartó. | ✅ | ✅ |
 | II. Español de España | Todos los textos de la interfaz están fijados en [contracts/ui.md](contracts/ui.md). Documentación en español. Identificadores del código en español (`sumarPunto`, `partido`...). | ✅ | ✅ |
-| III. Cero alcance fantasma | Cada elemento de [contracts/ui.md](contracts/ui.md) remite a una HU, un RF o una aclaración. Hay dos añadidos técnicos que la spec no pide como funcionalidad, pero que hacen falta para cumplirla: el service worker (para funcionar sin conexión, Supuestos) y el diálogo de fin de partido (para "anunciar el ganador", RF-006). El botón "Historial" del globito sale de RF-021. Ningún otro extra. | ✅ | ✅ |
+| III. Cero alcance fantasma | Cada elemento de [contracts/ui.md](contracts/ui.md) remite a una HU, un RF o una aclaración. Elementos que no son una HU literal pero sí están en la spec: el service worker (funcionar sin conexión, Supuestos), la instalación en la pantalla de inicio con manifest e iconos (Supuestos, aclaración del 2026-10-25), el diálogo de fin de partido ("anunciar el ganador", RF-006) y el botón "Historial" del globito (RF-008, RF-021). Ningún otro extra. | ✅ | ✅ |
 | IV. Verificable por una persona no técnica | Cada CE tiene su comprobación manual en [quickstart.md](quickstart.md), sección 2. Las pruebas automáticas son un apoyo, no sustituyen esas comprobaciones. | ✅ | ✅ |
 
 Resultado: **se supera** sin infracciones; la tabla de complejidad queda vacía.
@@ -88,7 +88,8 @@ js/
 └── app.js               # Conecta la pantalla con las reglas: toques, diálogos,
                          # cronómetro, Wake Lock, historial
 assets/
-├── logo-vpmadrid.png    # Logo (provisional hasta que llegue el real)
+├── logo-vpmadrid.png    # Logo original (fondo blanco), solo como referencia
+├── logo-vpmadrid-transparente.png  # Logo que usa la app (fondo transparente)
 ├── icono-192.png        # Iconos de la app instalada
 └── icono-512.png
 tests/

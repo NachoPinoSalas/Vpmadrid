@@ -19,14 +19,16 @@ Partido en curso. Se guarda tras cada cambio y al pasar la app a segundo plano.
   "equipoIzquierda": "A",
   "puntos": ["A", "A", "B"],
   "rehacer": [],
-  "cronometro": { "acumuladoMs": 754000, "enMarchaDesde": null },
+  "cronometro": { "acumuladoMs": 754000, "enMarchaDesde": null, "guardadoEn": 1792867330000 },
   "idHistorial": null
 }
 ```
 
-- Al cargar, `cronometro.enMarchaDesde` siempre se trata como `null` (el cronómetro vuelve
-  pausado, RF-019). Antes de guardar al pasar a segundo plano, el tiempo en marcha se suma
-  a `acumuladoMs`.
+- Cada guardado pone `cronometro.guardadoEn` al instante actual (`Date.now()`).
+- Al cargar (la app se había cerrado), si `enMarchaDesde` tiene valor, se suma
+  `guardadoEn - enMarchaDesde` a `acumuladoMs` y `enMarchaDesde` pasa a `null`: el
+  cronómetro vuelve pausado con el tiempo que llevaba al guardarse (RF-019).
+- Pasar a segundo plano sin cerrar la app no toca el cronómetro: sigue contando.
 - Reglas de cada campo: [data-model.md](../data-model.md#partido-en-curso).
 
 ## `vpmadrid.historial`
