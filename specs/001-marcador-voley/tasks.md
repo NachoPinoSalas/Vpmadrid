@@ -222,7 +222,7 @@ nombre no se puede cambiar; al quitar el logo vuelve al nombre por defecto (acla
 - [X] T047 [US3] Añadir a `tests/marcador.test.js` pruebas que deben FALLAR antes de T048: con `color: "negro"`, `logo: true` y `nombre: "Las Rozas"` el nombre queda "VPMadrid"; desde un equipo "VPMadrid" con logo, guardar `logo: false` con `nombre: "VPMadrid"` deja "Equipo 1" (A) o "Equipo 2" (B); en ese mismo caso, con `nombre: "Las Rozas"` se respeta "Las Rozas"; pasar de negro con logo a `verde` con `nombre: "VPMadrid"` deja "Equipo 1"
 - [X] T048 [US3] En `editarEquipo()` de `js/marcador.js`, aplicar la regla "Nombre y logo" de [data-model.md](data-model.md#equipo): "con `logo` en "sí", `nombre` es siempre "VPMadrid". Al pasar `logo` de "sí" a "no", si el nombre sigue siendo "VPMadrid" vuelve al de por defecto ("Equipo 1" o "Equipo 2"); si se ha escrito otro, se respeta"
 - [X] T049 [US3] En `js/app.js`, en el diálogo "Editar equipo": al marcar "Mostrar logo VPMadrid", el campo "Nombre" pasa a "VPMadrid" y queda `disabled`; al desmarcarlo (o al elegir otro color, que lo desmarca) vuelve a "Equipo 1"/"Equipo 2" y se habilita. Al abrir la edición de un equipo con logo, el campo aparece ya bloqueado con "VPMadrid"
-- [ ] T050 Cambiar `CACHE` de `"vpmadrid-v1"` a `"vpmadrid-v2"` en `sw.js` para que los móviles que ya tienen la app reciban la versión nueva, y publicar
+- [X] T050 Cambiar `CACHE` de `"vpmadrid-v1"` a `"vpmadrid-v2"` en `sw.js` para que los móviles que ya tienen la app reciban la versión nueva, y publicar
 
 ---
 
