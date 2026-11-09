@@ -253,7 +253,7 @@ con un set a mano (quickstart, comprobación 19).
 - [X] T056 [US1] Añadir a `tests/marcador.test.js` pruebas que deben FALLAR antes de T057: `sumarSet` con puntos 2 - 1 deja sets 1 - 0 y puntos 2 - 1; vacía `rehacer`; al mejor de 3, dos sets a mano dan el ganador; con ganador no cambia nada; con sets 1 - 1 a mano, el siguiente set va a 15; `deshacer` quita el set a mano sin tocar los puntos y `rehacer` lo vuelve a sumar
 - [X] T057 [US1] Implementar `sumarSet(partido, equipo)` en `js/marcador.js` y ampliar `calcular()` con la regla de [data-model.md](data-model.md#valores-calculados-no-se-guardan): "Un set sumado a mano (`"setA"`/`"setB"`) suma 1 set a ese equipo **sin tocar los puntos del set en curso**; si con él alcanza los sets para ganar, es el ganador"
 - [X] T058 [US1] Convertir los números de `#contador-sets` de `index.html` en `<button>` de al menos 44 × 44 px (`css/estilos.css`) con la etiqueta "Sumar set a {nombre}" que pone `render()`. En `js/app.js`, en su `pointerdown`: si el globito o un menú están abiertos, solo cerrarlos; si no, `aplicar((p) => sumarSet(p, equipoEn(lado)))`
-- [ ] T059 Cambiar `CACHE` a `"vpmadrid-v4"` en `sw.js`, pasar las pruebas y la comprobación en el navegador, y publicar con la cuenta NachoPinoSalas
+- [X] T059 Cambiar `CACHE` a `"vpmadrid-v4"` en `sw.js`, pasar las pruebas y la comprobación en el navegador, y publicar con la cuenta NachoPinoSalas
 
 ---
 
