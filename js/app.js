@@ -7,10 +7,12 @@ import {
   colorNumeroOscuro,
   deshacer,
   editarEquipo,
+  elegirFormatoInicial,
   formatearTiempo,
   NOMBRE_CON_LOGO,
   nombrePorDefecto,
   otroEquipo,
+  partidoAMedias,
   partidoNuevo,
   pausarCronometro,
   rehacer,
@@ -395,5 +397,21 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").catch(() => {});
 }
 
+// Formato al abrir (RF-011b): solo si no hay un partido a medias, y hay que elegir
+const dialogoFormato = document.getElementById("dialogo-formato");
+
+function preguntarFormato() {
+  dialogoFormato.returnValue = "";
+  dialogoFormato.showModal();
+}
+
+dialogoFormato.addEventListener("cancel", (evento) => evento.preventDefault());
+dialogoFormato.addEventListener("close", () => {
+  const formato = Number(dialogoFormato.returnValue);
+  if (formato === 3 || formato === 5) aplicar((p) => elegirFormatoInicial(p, formato));
+  else preguntarFormato();
+});
+
 render();
 mantenerPantallaEncendida();
+if (!partidoAMedias(partido)) preguntarFormato();

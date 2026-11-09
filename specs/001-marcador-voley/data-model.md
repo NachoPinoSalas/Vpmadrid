@@ -81,6 +81,10 @@ Ejemplos (formato 5):
 - **Nuevo partido**: todo vuelve a los valores por defecto, salvo `formato`, que es el
   elegido en la confirmación.
 - **Cambiar de lado**: solo cambia `equipoIzquierda`.
+- **Al abrir la app** (RF-011b): el partido está **a medias** si tiene puntos y no tiene
+  ganador. Si no está a medias, se pregunta el formato: si había terminado, se sustituye
+  por `partidoNuevo(formato)`; si no había empezado (sin puntos), solo cambia `formato` y
+  se vacía `rehacer`.
 
 ## Partido guardado (entrada del historial)
 

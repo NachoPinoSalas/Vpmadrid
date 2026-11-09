@@ -57,6 +57,7 @@ suma ningún punto.
 
 | Situación | Título | Texto | Botones |
 |---|---|---|---|
+| Formato al abrir (RF-011b) | "Nuevo partido" | "¿Al mejor de 3 o al mejor de 5 sets?" — no se puede cerrar sin elegir | "Al mejor de 3" · "Al mejor de 5" |
 | Reiniciar marcador | "¿Reiniciar marcador?" | "Los puntos, los sets y el cronómetro volverán a cero. Los nombres y colores se mantienen." | "Cancelar" · "Reiniciar" |
 | Nuevo partido | "¿Nuevo partido?" | "Se perderá el partido actual si no ha terminado." + selector "Al mejor de 3" / "Al mejor de 5" (marcado "Al mejor de 5") | "Cancelar" · "Empezar" |
 | Fin del partido | "¡{nombre} gana el partido!" | "{setsGanador} - {setsPerdedor} en sets. Guardado en el historial." | "Aceptar" |

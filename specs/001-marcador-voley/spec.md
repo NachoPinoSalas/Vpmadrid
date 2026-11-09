@@ -52,6 +52,16 @@ las respuestas a 8 preguntas de aclaración (ver "Aclaraciones").
 - P: Si después se quita el logo, ¿qué nombre queda? → R: El nombre por defecto ("Equipo 1"
   o "Equipo 2"), que se puede cambiar.
 
+### Sesión 2026-11-09
+
+- P: ¿La app pregunta el formato al abrirse? → R: Sí, "al mejor de 3" o "al mejor de 5",
+  pero solo si no hay un partido a medias (no hay partido, está a 0 - 0 o ya terminó). Un
+  partido a medias se recupera sin preguntar.
+- P: ¿Se puede cerrar la pregunta sin elegir? → R: No, hay que elegir uno de los dos.
+- P: Si el partido anterior había terminado, ¿se mantienen nombres y colores? → R: No, el
+  nuevo partido empieza con los valores por defecto. Si estaba sin empezar (0 - 0), se
+  conservan nombres y colores y solo se aplica el formato elegido.
+
 ## Escenarios de usuario y pruebas *(obligatorio)*
 
 ### Historia 1 - Contar los puntos y sets de un partido (Prioridad: P1)
@@ -70,9 +80,13 @@ equipo gane, y comprobar los puntos, los sets y el anuncio del ganador.
 
 **Escenarios de aceptación**:
 
-1. **Dado** un partido nuevo, **cuando** abro la app, **entonces** veo la pantalla dividida
-   en dos mitades con "Equipo 1" y "Equipo 2" encima de un 0 grande en cada una, y el
-   contador de sets 0 - 0.
+1. **Dado** que no hay un partido a medias, **cuando** abro la app, **entonces** me
+   pregunta "¿Al mejor de 3 o al mejor de 5 sets?" y no puedo seguir sin elegir; al elegir
+   veo la pantalla dividida en dos mitades con "Equipo 1" y "Equipo 2" encima de un 0
+   grande en cada una, y el contador de sets 0 - 0.
+1b. **Dado** un partido a medias (por ejemplo 12 - 10 en el segundo set), **cuando** cierro
+    y vuelvo a abrir la app, **entonces** NO me pregunta el formato y veo el partido tal
+    como estaba.
 2. **Dado** un partido en curso, **cuando** pulso en la mitad del Equipo 1, **entonces** su
    número sube en 1 y el del Equipo 2 no cambia.
 3. **Dado** un marcador 24 - 20 en un set que no es el decisivo, **cuando** el Equipo 1 suma
@@ -283,7 +297,8 @@ todos.
 - **Cronómetro de más de una hora**: sigue contando en minutos y segundos (por ejemplo
   75:12).
 - **Cerrar o recargar la app a mitad de partido**: al volver se ven los mismos puntos, sets,
-  nombres, colores, logo, formato y tiempo; el cronómetro queda en pausa.
+  nombres, colores, logo, formato y tiempo; el cronómetro queda en pausa. No se pregunta el
+  formato (RF-011b).
 - **Cambiar de lado o girar el móvil a mitad de set**: no altera ningún dato.
 - **Formato "al mejor de 3"**: el set decisivo es el tercero; con "al mejor de 5", el quinto.
 
@@ -316,6 +331,10 @@ todos.
   cronómetro, manteniendo nombres, colores, logo y formato.
 - **RF-011**: "Nuevo partido" DEBE, tras confirmar y elegir "al mejor de 3" o "al mejor de
   5", volver a los valores predeterminados.
+- **RF-011b**: Al abrir la app sin un partido a medias (sin partido, a 0 - 0 o terminado),
+  la app DEBE preguntar "al mejor de 3" o "al mejor de 5" y no dejar seguir sin elegir. Si
+  el partido había terminado, empieza uno nuevo con los valores predeterminados; si estaba
+  a 0 - 0, solo cambia el formato. Con un partido a medias NO DEBE preguntar.
 - **RF-012**: Un partido reiniciado sin terminar NO DEBE guardarse en el historial.
 - **RF-013**: "Cambiar de lado" DEBE intercambiar las mitades de los equipos con todos sus
   datos.
@@ -400,7 +419,8 @@ Todos se comprueban usando la app, sin leer código.
   más antiguos la app funciona igual, pero la pantalla sigue los ajustes del móvil.
 - Valores predeterminados: "Equipo 1" con camiseta azul a la izquierda (o arriba),
   "Equipo 2" con camiseta roja a la derecha (o abajo), logo desactivado, "al mejor de 5",
-  cronómetro 00:00 parado. La primera vez que se abre la app empieza con estos valores.
+  cronómetro 00:00 parado. La primera vez que se abre la app empieza con estos valores y
+  con el formato que se elija en la pregunta inicial (RF-011b).
 - Los únicos colores claros de la paleta son el blanco y el amarillo (ambos con número en
   negro); no hay otros colores claros como el celeste.
 - El logo de VPMadrid lo aporta el propietario del proyecto como imagen; no se puede subir

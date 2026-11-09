@@ -15,6 +15,8 @@ nuevo.
 | `cambiarLado(partido)` | Partido | Partido con `equipoIzquierda` cambiado. |
 | `editarEquipo(partido, equipo, {nombre, color, logo})` | ... | Partido con el equipo validado según [data-model.md](../data-model.md#equipo), incluida la regla "Nombre y logo" (con logo, el nombre es "VPMadrid"). |
 | `colorNumeroOscuro(color)` | id de color | `true` para `blanco` y `amarillo`. |
+| `partidoAMedias(partido)` | Partido | `true` si tiene puntos y no tiene ganador (RF-011b). |
+| `elegirFormatoInicial(partido, formato)` | Partido, 3 o 5 | Si había terminado, `partidoNuevo(formato)`; si no, el mismo partido con ese `formato` y `rehacer` vacío. |
 
 Las reglas de set y partido son las de [data-model.md](../data-model.md#valores-calculados-no-se-guardan).
 

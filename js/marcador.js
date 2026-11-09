@@ -148,6 +148,17 @@ export function cambiarLado(partido) {
   return { ...partido, equipoIzquierda: otroEquipo(partido.equipoIzquierda) };
 }
 
+// Al abrir la app solo se recupera sin preguntar un partido a medias (RF-011b)
+export function partidoAMedias(partido) {
+  return partido.puntos.length > 0 && !calcular(partido).ganador;
+}
+
+// Tras un partido terminado, uno nuevo por defecto; sin empezar, solo cambia el formato
+export function elegirFormatoInicial(partido, formato) {
+  if (calcular(partido).ganador) return partidoNuevo(formato);
+  return { ...partido, formato, rehacer: [] };
+}
+
 // Mantiene formato, equipos y lados (RF-010)
 export function reiniciarMarcador(partido) {
   return {

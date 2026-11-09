@@ -38,7 +38,7 @@ npx serve .                        # servidor local en http://localhost:3000
 
 | # | Pasos | Resultado esperado | Spec |
 |---|---|---|---|
-| 1 | Abrir la app por primera vez. | "Equipo 1" (azul) y "Equipo 2" (rojo) con 0, sets 0 - 0, cronómetro 00:00. | Historia 1, esc. 1 |
+| 1 | Abrir la app por primera vez. Intentar cerrar la pregunta sin elegir (botón atrás o Esc) y después elegir "Al mejor de 3". | Pregunta "¿Al mejor de 3 o al mejor de 5 sets?" y no se cierra sin elegir. Después: "Equipo 1" (azul) y "Equipo 2" (rojo) con 0, sets 0 - 0, cronómetro 00:00; el partido termina con 2 sets. | Historia 1, esc. 1; RF-011b |
 | 2 | Pulsar 10 veces en el Equipo 1 y 8 en el Equipo 2. | 10 - 8 al instante, sin fallar ningún toque. | CE-002 |
 | 3 | Pulsar el lápiz del Equipo 1. | Se abre "Editar equipo" y el marcador sigue en 10 - 8. | Historia 3, esc. 1 |
 | 4 | Llevar el Equipo 1 a 25 - 20. | Sets 1 - 0 y puntos 0 - 0. | Historia 1, esc. 3 |
@@ -50,7 +50,7 @@ npx serve .                        # servidor local en http://localhost:3000
 | 10 | ⇄ con 10 - 8 y sets 1 - 0; luego pulsar en cada mitad. | Cada equipo cambia de lado con sus datos; el punto va al equipo de esa mitad. | Historia 5 |
 | 11 | Girar el móvil a horizontal y volver a vertical. | Mitades lado a lado / una encima de otra, mismos datos. | RF-018 |
 | 12 | Cronómetro en marcha 10 minutos junto a un reloj; a mitad, cambiar 1 minuto a otra app y volver. | Diferencia de 1 segundo como máximo; ha seguido contando mientras estaba en la otra app. | CE-006; casos límite |
-| 13 | A mitad de partido, cerrar la app del todo y volver a abrirla. | Todo idéntico; cronómetro pausado con el tiempo que tenía. | CE-005 |
+| 13 | A mitad de partido, cerrar la app del todo y volver a abrirla. Después terminar el partido, cerrarla y abrirla otra vez. | A medias: todo idéntico, cronómetro pausado y **sin** pregunta de formato. Terminado: pregunta el formato y empieza con los valores por defecto. | CE-005; Historia 1, esc. 1b; RF-011b |
 | 14 | Bloqueo de pantalla del móvil en 30 s; dejar la app abierta 5 minutos sin tocarla (versión publicada con HTTPS). | La pantalla no se apaga. | CE-009 |
 | 15 | "Reiniciar marcador" y "Nuevo partido": primero cancelar y luego confirmar. | Al cancelar no cambia nada. Al confirmar, se reinicia lo indicado en cada caso. | Historia 2, esc. 8–11 |
 | 16 | Historial: borrar un partido y luego "Borrar todo". | Desaparece el elegido; después, "Todavía no hay partidos guardados". | Historia 6 |

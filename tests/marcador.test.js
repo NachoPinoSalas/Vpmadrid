@@ -13,6 +13,8 @@ import {
   arrancarCronometro,
   pausarCronometro,
   cambiarLado,
+  partidoAMedias,
+  elegirFormatoInicial,
 } from "../js/marcador.js";
 import { cronometroTrasCierre } from "../js/almacen.js";
 
@@ -314,4 +316,32 @@ test("pasar de negro con logo a verde vuelve al nombre por defecto", () => {
   const r = editarEquipo(conLogo(), "A", { nombre: "VPMadrid", color: "verde", logo: true });
   assert.equal(datosA(r).nombre, "Equipo 1");
   assert.equal(datosA(r).logo, false);
+});
+
+// Cambio: preguntar el formato al abrir (RF-011b)
+
+test("partidoAMedias: solo con puntos y sin ganador", () => {
+  assert.equal(partidoAMedias(partidoNuevo()), false);
+  assert.equal(partidoAMedias(conPuntos(["A", "B"])), true);
+  assert.equal(partidoAMedias(conPuntos([...setPara("A"), ...setPara("A"), ...setPara("A")])), false);
+});
+
+test("elegirFormatoInicial tras un partido terminado empieza uno nuevo por defecto", () => {
+  const terminado = editarEquipo(
+    conPuntos([...setPara("A"), ...setPara("A"), ...setPara("A")]),
+    "A",
+    { nombre: "Las Rozas", color: "verde", logo: false }
+  );
+  assert.deepEqual(elegirFormatoInicial(terminado, 3), partidoNuevo(3));
+});
+
+test("elegirFormatoInicial sin empezar conserva los equipos y aplica el formato", () => {
+  const sinEmpezar = {
+    ...editarEquipo(partidoNuevo(5), "A", { nombre: "Las Rozas", color: "verde", logo: false }),
+    rehacer: ["A"],
+  };
+  const r = elegirFormatoInicial(sinEmpezar, 3);
+  assert.equal(r.formato, 3);
+  assert.equal(r.equipos.A.nombre, "Las Rozas");
+  assert.deepEqual(r.rehacer, []);
 });
