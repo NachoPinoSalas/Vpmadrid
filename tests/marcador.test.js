@@ -15,6 +15,7 @@ import {
   cambiarLado,
   partidoAMedias,
   elegirFormatoInicial,
+  sumarSet,
 } from "../js/marcador.js";
 import { cronometroTrasCierre } from "../js/almacen.js";
 
@@ -344,4 +345,45 @@ test("elegirFormatoInicial sin empezar conserva los equipos y aplica el formato"
   assert.equal(r.formato, 3);
   assert.equal(r.equipos.A.nombre, "Las Rozas");
   assert.deepEqual(r.rehacer, []);
+});
+
+// Cambio: sumar sets a mano (RF-005b)
+
+test("sumarSet suma un set sin tocar los puntos del set en curso", () => {
+  const r = calcular(sumarSet(conPuntos(["A", "A", "B"]), "A"));
+  assert.deepEqual(r.sets, { A: 1, B: 0 });
+  assert.deepEqual(r.puntosSet, { A: 2, B: 1 });
+  assert.equal(r.setActual, 2);
+});
+
+test("sumarSet vacía rehacer", () => {
+  const r = sumarSet({ ...conPuntos(["A"]), rehacer: ["B"] }, "B");
+  assert.deepEqual(r.rehacer, []);
+  assert.deepEqual(r.puntos, ["A", "setB"]);
+});
+
+test("al mejor de 3, dos sets a mano dan el partido", () => {
+  const r = calcular(sumarSet(sumarSet(partidoNuevo(3), "B"), "B"));
+  assert.equal(r.ganador, "B");
+  assert.deepEqual(r.sets, { A: 0, B: 2 });
+});
+
+test("sumarSet con el partido terminado no cambia nada", () => {
+  const terminado = sumarSet(sumarSet(partidoNuevo(3), "A"), "A");
+  assert.equal(sumarSet(terminado, "B"), terminado);
+});
+
+test("con sets 1 - 1 a mano, el siguiente set es el decisivo a 15", () => {
+  const unoUno = sumarSet(sumarSet(partidoNuevo(3), "A"), "B");
+  const r = calcular({ ...unoUno, puntos: [...unoUno.puntos, ...repetir("A", 15)] });
+  assert.equal(r.ganador, "A");
+  assert.deepEqual(r.sets, { A: 2, B: 1 });
+});
+
+test("deshacer quita el set a mano sin tocar los puntos y rehacer lo vuelve a sumar", () => {
+  const conSet = sumarSet(conPuntos(repetir("A", 10)), "B");
+  const deshecho = deshacer(conSet);
+  assert.deepEqual(calcular(deshecho).sets, { A: 0, B: 0 });
+  assert.deepEqual(calcular(deshecho).puntosSet, { A: 10, B: 0 });
+  assert.deepEqual(calcular(rehacer(deshecho)).sets, { A: 0, B: 1 });
 });

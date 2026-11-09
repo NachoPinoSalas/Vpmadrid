@@ -30,7 +30,7 @@ VERTICAL                         HORIZONTAL
 | Botón play/pausa | Arriba, a la izquierda del cronómetro | Arranca o pausa el cronómetro. Icono ▶ cuando está parado y ❚❚ cuando está en marcha. Etiqueta accesible: "Iniciar cronómetro" / "Pausar cronómetro". |
 | Cronómetro | Arriba | Formato `mm:ss`. Pasada una hora sigue en minutos (por ejemplo, `75:12`). |
 | Botón reiniciar cronómetro | A la derecha del cronómetro | Pone `00:00` y lo deja parado, sin pedir confirmación. Etiqueta: "Reiniciar cronómetro". |
-| Contador de sets | Debajo del cronómetro | Fondo blanco. `setsIzquierda - setsDerecha`, cada número del color de su camiseta (negro si es blanca o amarilla). |
+| Contador de sets | Debajo del cronómetro | Fondo blanco. `setsIzquierda - setsDerecha`, cada número del color de su camiseta (negro si es blanca o amarilla). Cada número es un botón de al menos 44 × 44 px: al tocarlo suma 1 set a ese equipo sin confirmación (RF-005b). Etiqueta: "Sumar set a {nombre}". |
 | Mitad de equipo | Una por equipo | Fondo del color de la camiseta. Al pulsarla (fuera del lápiz) suma 1 punto a ese equipo, salvo con el partido terminado. |
 | Nombre del equipo | Encima del número | El nombre del equipo. |
 | Número de puntos | Centro de la mitad | Muy grande; blanco, o negro con camiseta blanca o amarilla. |

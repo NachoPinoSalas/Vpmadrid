@@ -61,6 +61,12 @@ las respuestas a 8 preguntas de aclaración (ver "Aclaraciones").
 - P: Si el partido anterior había terminado, ¿se mantienen nombres y colores? → R: No, el
   nuevo partido empieza con los valores por defecto. Si estaba sin empezar (0 - 0), se
   conservan nombres y colores y solo se aplica el formato elegido.
+- P: ¿Se pueden sumar sets a mano (por ejemplo, al llegar a un partido ya empezado)? → R: Sí,
+  tocando el número de sets de un equipo en el contador. No se tocan los puntos del set en
+  curso y no pide confirmación.
+- P: ¿Y si ese set da la victoria? → R: El partido termina igual que al ganarlo por puntos.
+- P: ¿Se puede deshacer un set sumado a mano? → R: Sí, con "Deshacer", en el mismo orden que
+  los puntos; "Rehacer" lo vuelve a sumar.
 
 ## Escenarios de usuario y pruebas *(obligatorio)*
 
@@ -108,6 +114,14 @@ equipo gane, y comprobar los puntos, los sets y el anuncio del ganador.
 9. **Dado** el contador de sets (debajo del cronómetro), **cuando** lo miro, **entonces**
    tiene fondo blanco y el número de sets de cada equipo se ve del color de su camiseta
    (en negro si la camiseta es blanca o amarilla).
+10. **Dado** un partido con sets 0 - 0 y puntos 10 - 8, **cuando** toco el número de sets
+    del Equipo 1, **entonces** los sets pasan a 1 - 0 al instante y los puntos siguen en
+    10 - 8.
+11. **Dado** un partido "al mejor de 3" con sets 1 - 1 sumados a mano, **cuando** se juega el
+    siguiente set, **entonces** es el decisivo y va a 15.
+12. **Dado** un partido "al mejor de 5" con sets 2 - 0, **cuando** toco el número de sets del
+    equipo que lleva 2, **entonces** gana el partido: se anuncia, se para el cronómetro y se
+    guarda en el historial.
 
 ---
 
@@ -134,6 +148,8 @@ comprobando el marcador tras cada acción.
 4. **Dado** que el último punto cerró un set (sets 1 - 0, puntos 0 - 0), **cuando** elijo
    "Deshacer", **entonces** vuelven los sets 0 - 0 y los puntos que había antes de ese
    punto (por ejemplo 24 - 20).
+4b. **Dado** que acabo de sumar un set a mano por error, **cuando** elijo "Deshacer",
+    **entonces** el set se quita y los puntos no cambian; "Rehacer" lo vuelve a sumar.
 5. **Dado** que no hay ningún punto que deshacer, **cuando** abro "deshacer", **entonces**
    la opción "Deshacer" aparece desactivada (y lo mismo "Rehacer" si no hay nada que
    rehacer).
@@ -281,8 +297,9 @@ todos.
 
 - **Toque en el lápiz o en el globito**: no suma ningún punto. La zona que suma puntos es
   la mitad del equipo salvo el lápiz y su alrededor inmediato.
-- **Pulsar en una mitad con el globito o un menú abierto**: solo los cierra; no suma
-  ningún punto.
+- **Pulsar en una mitad o en el contador de sets con el globito o un menú abierto**: solo
+  los cierra; no suma ningún punto ni set.
+- **Tocar el contador de sets con el partido terminado**: no suma.
 - **Cambiar un momento a otra app o bloquear el móvil con el cronómetro en marcha**: el
   cronómetro sigue contando y al volver muestra el tiempo real.
 - **Pulsar en las mitades con el partido terminado**: no suma puntos. Se puede empezar un
@@ -316,6 +333,9 @@ todos.
   equipo.
 - **RF-005**: La app DEBE dar el set por ganado al equipo que llegue a 25 puntos con 2 de
   ventaja (15 con 2 de ventaja en el set decisivo), sumarle el set y poner los puntos a 0.
+- **RF-005b**: Tocar el número de sets de un equipo en el contador DEBE sumarle 1 set al
+  instante, sin confirmación y sin cambiar los puntos del set en curso. Si con ese set gana
+  el partido, se aplica RF-006. Con el partido terminado, no suma.
 - **RF-006**: La app DEBE dar el partido por ganado al equipo que gane 2 sets ("al mejor de
   3") o 3 sets ("al mejor de 5"), anunciar el ganador y dejar de sumar puntos.
 - **RF-007**: Debajo del cronómetro DEBE haber un contador de sets con fondo blanco donde el
@@ -327,6 +347,7 @@ todos.
 - **RF-009**: "Deshacer" DEBE quitar el último punto sumado (y el set si ese punto lo
   cerró); "Rehacer" DEBE volver a aplicar el último punto deshecho. Solo afectan a puntos.
   Si el partido ya había terminado, "Deshacer" DEBE reabrirlo y quitarlo del historial.
+  Los sets sumados a mano (RF-005b) se deshacen y rehacen igual, en el mismo orden.
 - **RF-010**: "Reiniciar marcador" DEBE, tras confirmar, poner a 0 puntos, sets y
   cronómetro, manteniendo nombres, colores, logo y formato.
 - **RF-011**: "Nuevo partido" DEBE, tras confirmar y elegir "al mejor de 3" o "al mejor de
@@ -434,7 +455,7 @@ Todos se comprueban usando la app, sin leer código.
 ## Fuera de alcance (v0)
 
 - Saque, rotaciones, tiempos muertos y sustituciones.
-- Restar puntos de otra forma que no sea "Deshacer".
+- Restar puntos o sets de otra forma que no sea "Deshacer".
 - Deshacer cambios de nombre, color, lado o reinicios.
 - Colores libres fuera de la paleta.
 - Puntos por set configurables.

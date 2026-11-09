@@ -9,7 +9,8 @@ nuevo.
 | `partidoNuevo(formato = 5)` | 3 o 5 | Partido con los valores por defecto. |
 | `calcular(partido)` | Partido | `{ puntosSet: {A, B}, sets: {A, B}, setActual, ganador }`; `ganador` es `"A"`, `"B"` o `null`. |
 | `sumarPunto(partido, equipo)` | Partido, `"A"`/`"B"` | Partido con el punto añadido y `rehacer` vacío. Si ya hay ganador, lo devuelve sin cambios. |
-| `deshacer(partido)` | Partido | Partido sin el último punto (que pasa a `rehacer`). Sin puntos, lo devuelve sin cambios. |
+| `sumarSet(partido, equipo)` | Partido, `"A"`/`"B"` | Partido con la jugada `"setA"`/`"setB"` añadida y `rehacer` vacío (RF-005b). Si ya hay ganador, lo devuelve sin cambios. |
+| `deshacer(partido)` | Partido | Partido sin la última jugada, punto o set a mano, que pasa a `rehacer`. Sin jugadas, lo devuelve sin cambios. |
 | `rehacer(partido)` | Partido | Partido con el último punto de `rehacer` aplicado de nuevo. Con `rehacer` vacío, lo devuelve sin cambios. |
 | `reiniciarMarcador(partido)` | Partido | Partido con `puntos`, `rehacer`, `cronometro` e `idHistorial` a cero o vacíos; mantiene formato, equipos y lados. |
 | `cambiarLado(partido)` | Partido | Partido con `equipoIzquierda` cambiado. |

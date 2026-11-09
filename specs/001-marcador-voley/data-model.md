@@ -29,8 +29,8 @@ camiseta, salvo blanco o amarillo, que van en negro.
 | `formato` | 3 o 5 | "Al mejor de 3" o "al mejor de 5". Por defecto, 5. |
 | `equipos` | `{ A: Equipo, B: Equipo }` | Por defecto: A = "Equipo 1", azul, sin logo; B = "Equipo 2", rojo, sin logo. |
 | `equipoIzquierda` | `"A"` o `"B"` | Qué equipo ocupa la mitad izquierda (o la de arriba en vertical). Por defecto, `"A"`. |
-| `puntos` | lista de `"A"`/`"B"` | Cada punto sumado, en orden. Es la única fuente de verdad del marcador. |
-| `rehacer` | lista de `"A"`/`"B"` | Puntos deshechos que se pueden rehacer. Se vacía al sumar un punto nuevo o al reiniciar. |
+| `puntos` | lista de `"A"`/`"B"`/`"setA"`/`"setB"` | Cada jugada en orden: un punto (`"A"`/`"B"`) o un set sumado a mano (`"setA"`/`"setB"`, RF-005b). Es la única fuente de verdad del marcador. |
+| `rehacer` | lista de jugadas | Jugadas deshechas que se pueden rehacer. Se vacía al sumar un punto o un set nuevo o al reiniciar. |
 | `cronometro.acumuladoMs` | número ≥ 0 | Milisegundos acumulados mientras estuvo en marcha. |
 | `cronometro.enMarchaDesde` | instante o vacío | Cuándo arrancó por última vez; vacío si está parado. |
 | `cronometro.guardadoEn` | instante o vacío | Cuándo se guardó el partido por última vez. Sirve para saber cuánto tiempo contar si la app se cerró con el cronómetro en marcha. |
@@ -47,6 +47,9 @@ Se obtienen recorriendo `puntos` desde el principio:
 - Al recorrer la lista: se suma el punto al equipo; si con él gana el set, se le suma un
   set y los puntos del set vuelven a 0 - 0; si con ese set alcanza los sets para ganar,
   es el **ganador** y el partido está **terminado**.
+- Un set sumado a mano (`"setA"`/`"setB"`) suma 1 set a ese equipo **sin tocar los puntos
+  del set en curso**; si con él alcanza los sets para ganar, es el ganador. El set
+  decisivo se sigue calculando por el número de sets jugados, cuenten o no a mano.
 - Resultado: `puntosSet {A, B}`, `sets {A, B}`, `ganador` (`"A"`, `"B"` o ninguno).
 
 Ejemplos (formato 5):

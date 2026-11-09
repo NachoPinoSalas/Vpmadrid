@@ -18,6 +18,7 @@ import {
   rehacer,
   reiniciarMarcador,
   sumarPunto,
+  sumarSet,
   tiempoMs,
 } from "./marcador.js";
 import {
@@ -64,6 +65,7 @@ function render() {
     const numeroSets = document.getElementById(`sets-${lado}`);
     numeroSets.textContent = sets[equipo];
     numeroSets.style.color = oscuro ? "#000000" : fondo;
+    numeroSets.setAttribute("aria-label", `Sumar set a ${nombre}`);
   }
   pintarCronometro();
 }
@@ -128,6 +130,15 @@ for (const lado of LADOS) {
       return;
     }
     aplicar((p) => sumarPunto(p, equipoEn(lado)));
+  });
+
+  // Tocar el número de sets suma un set a mano, sin tocar los puntos (RF-005b)
+  document.getElementById(`sets-${lado}`).addEventListener("pointerdown", () => {
+    if (globitoAbierto()) {
+      cerrarGlobito();
+      return;
+    }
+    aplicar((p) => sumarSet(p, equipoEn(lado)));
   });
 }
 

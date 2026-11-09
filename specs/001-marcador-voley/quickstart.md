@@ -56,6 +56,7 @@ npx serve .                        # servidor local en http://localhost:3000
 | 16 | Historial: borrar un partido y luego "Borrar todo". | Desaparece el elegido; después, "Todavía no hay partidos guardados". | Historia 6 |
 | 17 | Modo avión y abrir la app instalada. | Funciona igual. | Supuestos |
 | 18 | Recorrer todas las pantallas y diálogos. | Ningún texto en otro idioma. | CE-008 |
+| 19 | Con puntos 10 - 8, tocar el número de sets del Equipo 1; después ● → ↶ → Deshacer. Al mejor de 5, poner sets 2 - 0 a mano y tocar otra vez. | Sets 1 - 0 al instante con los puntos en 10 - 8; Deshacer lo quita sin tocar los puntos. Con 2 - 0, el tercer toque da el partido: "¡… gana el partido!". | Historia 1, esc. 10–12; Historia 2, esc. 4b; RF-005b |
 
 ## Limitaciones conocidas
 

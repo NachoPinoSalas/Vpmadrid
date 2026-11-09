@@ -65,6 +65,17 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* Cada número de sets se toca para sumar un set a mano (RF-005b) */
+.numero-sets {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 4px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+}
+
 /* Campo: en vertical, una mitad encima de otra */
 #campo {
   flex: 1;

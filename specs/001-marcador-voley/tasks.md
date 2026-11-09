@@ -206,7 +206,7 @@ revisión final.
 - [X] T043 Registrar el service worker en `js/app.js` con `navigator.serviceWorker.register("sw.js")` si `"serviceWorker" in navigator`, dentro de `try/catch`
 - [X] T044 Revisar `index.html` y `js/app.js` contra [contracts/ui.md](contracts/ui.md): todos los textos visibles y `aria-label` coinciden literalmente y no hay ningún texto en otro idioma (CE-008, constitución II). Comprobar también que no hay ninguna funcionalidad que no esté en la spec o en contracts/ui.md (constitución III)
 - [X] T045 Ejecutar `node --test` y comprobar que no falla ninguna prueba
-- [ ] T046 Seguir [quickstart.md](quickstart.md), sección 2: las 18 comprobaciones manuales en un móvil, con la 14 (Wake Lock) y la 17 (sin conexión) en la versión publicada con HTTPS. Apuntar cualquier fallo como tarea nueva en este archivo
+- [ ] T046 Seguir [quickstart.md](quickstart.md), sección 2: las 19 comprobaciones manuales en un móvil, con la 14 (Wake Lock) y la 17 (sin conexión) en la versión publicada con HTTPS. Apuntar cualquier fallo como tarea nueva en este archivo
 
 ---
 
@@ -239,6 +239,21 @@ mejor de 5" sin dejar seguir sin elegir (aclaración del 2026-11-09).
 - [X] T053 [US1] Añadir a `index.html` el `<dialog id="dialogo-formato">` con el título "Nuevo partido", el texto "¿Al mejor de 3 o al mejor de 5 sets?" y los botones "Al mejor de 3" (`value="3"`) y "Al mejor de 5" (`value="5"`), sin "Cancelar" ([contracts/ui.md](contracts/ui.md#diálogos-y-textos-exactos))
 - [X] T054 [US1] En `js/app.js`, al arrancar, si `!partidoAMedias(partido)` abrir `#dialogo-formato`. Impedir que se cierre sin elegir: `preventDefault()` en su evento `cancel` y, si aun así se cierra sin un valor `"3"` o `"5"`, volver a abrirlo. Al elegir: `aplicar((p) => elegirFormatoInicial(p, formato))`
 - [X] T055 Cambiar `CACHE` a `"vpmadrid-v3"` en `sw.js`, pasar las pruebas y la comprobación en el navegador, y publicar
+
+---
+
+## Fase 12: Cambio - Sumar sets a mano (Historias 1 y 2, RF-005b)
+
+**Objetivo**: tocar el número de sets de un equipo le suma un set sin tocar los puntos;
+se deshace y rehace como un punto (aclaración del 2026-11-09).
+
+**Prueba independiente**: sumar sets a mano a mitad de set, deshacerlos y ganar un partido
+con un set a mano (quickstart, comprobación 19).
+
+- [X] T056 [US1] Añadir a `tests/marcador.test.js` pruebas que deben FALLAR antes de T057: `sumarSet` con puntos 2 - 1 deja sets 1 - 0 y puntos 2 - 1; vacía `rehacer`; al mejor de 3, dos sets a mano dan el ganador; con ganador no cambia nada; con sets 1 - 1 a mano, el siguiente set va a 15; `deshacer` quita el set a mano sin tocar los puntos y `rehacer` lo vuelve a sumar
+- [X] T057 [US1] Implementar `sumarSet(partido, equipo)` en `js/marcador.js` y ampliar `calcular()` con la regla de [data-model.md](data-model.md#valores-calculados-no-se-guardan): "Un set sumado a mano (`"setA"`/`"setB"`) suma 1 set a ese equipo **sin tocar los puntos del set en curso**; si con él alcanza los sets para ganar, es el ganador"
+- [X] T058 [US1] Convertir los números de `#contador-sets` de `index.html` en `<button>` de al menos 44 × 44 px (`css/estilos.css`) con la etiqueta "Sumar set a {nombre}" que pone `render()`. En `js/app.js`, en su `pointerdown`: si el globito o un menú están abiertos, solo cerrarlos; si no, `aplicar((p) => sumarSet(p, equipoEn(lado)))`
+- [ ] T059 Cambiar `CACHE` a `"vpmadrid-v4"` en `sw.js`, pasar las pruebas y la comprobación en el navegador, y publicar con la cuenta NachoPinoSalas
 
 ---
 

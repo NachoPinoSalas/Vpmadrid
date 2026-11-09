@@ -46,16 +46,27 @@ export function partidoNuevo(formato = 5) {
   };
 }
 
-// Recorre la lista de puntos y aplica las reglas de set y partido (RF-005, RF-006):
+// Jugada de un set sumado a mano (RF-005b): "setA" o "setB"
+const SET_A_MANO = { A: "setA", B: "setB" };
+
+// Recorre la lista de jugadas y aplica las reglas de set y partido (RF-005, RF-006):
 // el set decisivo (el número `formato`) va a 15 y el resto a 25, siempre con 2 de ventaja.
+// Un set sumado a mano no toca los puntos del set en curso (RF-005b).
 export function calcular(partido) {
   const puntosSet = { A: 0, B: 0 };
   const sets = { A: 0, B: 0 };
   const setsParaGanar = (partido.formato + 1) / 2;
   let ganador = null;
 
-  for (const equipo of partido.puntos) {
+  for (const jugada of partido.puntos) {
     if (ganador) break;
+    if (jugada === SET_A_MANO.A || jugada === SET_A_MANO.B) {
+      const equipo = jugada === SET_A_MANO.A ? "A" : "B";
+      sets[equipo]++;
+      if (sets[equipo] === setsParaGanar) ganador = equipo;
+      continue;
+    }
+    const equipo = jugada;
     puntosSet[equipo]++;
     const objetivo = sets.A + sets.B + 1 === partido.formato ? 15 : 25;
     const ventaja = puntosSet[equipo] - puntosSet[otroEquipo(equipo)];
@@ -72,10 +83,18 @@ export function calcular(partido) {
   return { puntosSet, sets, setActual, ganador };
 }
 
-// Con el partido terminado no se suman más puntos (RF-006)
-export function sumarPunto(partido, equipo) {
+// Con el partido terminado no se suman más puntos ni sets (RF-006)
+function anadirJugada(partido, jugada) {
   if (calcular(partido).ganador) return partido;
-  return { ...partido, puntos: [...partido.puntos, equipo], rehacer: [] };
+  return { ...partido, puntos: [...partido.puntos, jugada], rehacer: [] };
+}
+
+export function sumarPunto(partido, equipo) {
+  return anadirJugada(partido, equipo);
+}
+
+export function sumarSet(partido, equipo) {
+  return anadirJugada(partido, SET_A_MANO[equipo]);
 }
 
 // Deshacer y rehacer solo afectan a puntos (RF-009). Como sets y ganador se calculan
