@@ -238,7 +238,7 @@ mejor de 5" sin dejar seguir sin elegir (aclaración del 2026-11-09).
 - [X] T052 [US1] Implementar `partidoAMedias(partido)` y `elegirFormatoInicial(partido, formato)` en `js/marcador.js` según [contracts/marcador.md](contracts/marcador.md) y la transición "Al abrir la app" de [data-model.md](data-model.md#estados-y-transiciones)
 - [X] T053 [US1] Añadir a `index.html` el `<dialog id="dialogo-formato">` con el título "Nuevo partido", el texto "¿Al mejor de 3 o al mejor de 5 sets?" y los botones "Al mejor de 3" (`value="3"`) y "Al mejor de 5" (`value="5"`), sin "Cancelar" ([contracts/ui.md](contracts/ui.md#diálogos-y-textos-exactos))
 - [X] T054 [US1] En `js/app.js`, al arrancar, si `!partidoAMedias(partido)` abrir `#dialogo-formato`. Impedir que se cierre sin elegir: `preventDefault()` en su evento `cancel` y, si aun así se cierra sin un valor `"3"` o `"5"`, volver a abrirlo. Al elegir: `aplicar((p) => elegirFormatoInicial(p, formato))`
-- [ ] T055 Cambiar `CACHE` a `"vpmadrid-v3"` en `sw.js`, pasar las pruebas y la comprobación en el navegador, y publicar
+- [X] T055 Cambiar `CACHE` a `"vpmadrid-v3"` en `sw.js`, pasar las pruebas y la comprobación en el navegador, y publicar
 
 ---
 
